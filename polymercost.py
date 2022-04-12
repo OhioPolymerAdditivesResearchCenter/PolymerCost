@@ -215,10 +215,6 @@ def flex_filled(duro_A, phr_CaCO3):
     e = 0.1840327098 * phr_CaCO3
     f = -5.05711084
     duro = a + b + c + d + e + f
-    if duro <= duro_A:
-        duro = duro_A
-    if phr_CaCO3 == 0:
-        duro = duro_A
     return duro
 
 def duro_AtoD(duro_A):
