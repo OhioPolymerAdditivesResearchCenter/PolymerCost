@@ -336,6 +336,24 @@ def rigid_3micron(phr_filler, phr_impact_modifier):
     notch = notch_a + notch_b + notch_c + notch_d + notch_e + notch_f
     return(flex_mod, notch)
 
+def density_blend(density1, parts1, density2, parts2):
+    #takes 2 PE grades and calculates out the density using rule of mixtures
+    #can use parts or percent, it will make it to 100% though no matter what
+    percent1=parts1/(parts1+parts2)
+    percent2=parts2/(parts1+parts2)
+    return(percent1 * density1 + percent2 * density2)
+    
+
+def melt_index_blend(melt1, parts1, melt2, parts2):
+    #better estimate of melt index than rule of mixtures
+    percent1=parts1/(parts1+parts2)
+    percent2=parts2/(parts1+parts2)
+    blended_melt = (melt1**percent1) * (melt2**percent2)
+    return(blended_melt)
+
+ 
+    
+
 
 #main program loop
 if __name__ == "__main__":
