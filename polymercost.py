@@ -339,15 +339,17 @@ def rigid_3micron(phr_filler, phr_impact_modifier):
 def density_blend(density1, parts1, density2, parts2):
     #takes 2 PE grades and calculates out the density using rule of mixtures
     #can use parts or percent, it will make it to 100% though no matter what
-    percent1=parts1/(parts1+parts2)
-    percent2=parts2/(parts1+parts2)
+    #this isn't a bad estimate of tensile and flexural properties of PE blends either
+    #this is a horrible estimate of impact properties
+    percent1 = parts1 / (parts1 + parts2)
+    percent2 = parts2 / (parts1 + parts2)
     return(percent1 * density1 + percent2 * density2)
     
 
 def melt_index_blend(melt1, parts1, melt2, parts2):
     #better estimate of melt index than rule of mixtures
-    percent1=parts1/(parts1+parts2)
-    percent2=parts2/(parts1+parts2)
+    percent1 = parts1 / (parts1 + parts2)
+    percent2 = parts2 / (parts1 + parts2)
     blended_melt = (melt1**percent1) * (melt2**percent2)
     return(blended_melt)
 
