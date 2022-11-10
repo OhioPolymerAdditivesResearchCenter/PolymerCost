@@ -340,7 +340,8 @@ def density_blend(density1, parts1, density2, parts2):
     #takes 2 PE grades and calculates out the density using rule of mixtures
     #can use parts or percent, it will make it to 100% though no matter what
     #this isn't a bad estimate of tensile and flexural properties of PE blends either
-    #this is a horrible estimate of impact properties
+    #this isn't a horrible estimate of melt index, but the melt_index_blend() below is way better
+    #this is a horrible estimate of impact properties, do not use this here
     percent1 = parts1 / (parts1 + parts2)
     percent2 = parts2 / (parts1 + parts2)
     return(percent1 * density1 + percent2 * density2)
@@ -352,6 +353,19 @@ def melt_index_blend(melt1, parts1, melt2, parts2):
     percent2 = parts2 / (parts1 + parts2)
     blended_melt = (melt1**percent1) * (melt2**percent2)
     return(blended_melt)
+
+def vistamaxx8880_blended_melt_flow(percent_vistamaxx8880, percent_vistamaxx6202):
+    #takes an amount of ExxonMobil's Vistamaxx8880 and Vistamaxx6202 and returns the Melt Flow Rate at 230 C / 2.16kg in g/10 min terms
+    #use ExxonMobil's Vistamaxx 8880 to reduce viscosity and promote flow, in particular with a mainline Vistamaxx product
+    #should reduce molding costs too
+    #should allow higher usage of filler to reduce costs also
+    #less stress whitening, less need for process aid
+    #higher output
+    percent1 = percent_vistamaxx8880 / (percent_vistamaxx8880 + percent_vistamaxx6202)
+    percent2 = percent_vistamaxx6202 / (percent_vistamaxx8880 + percent_vistamaxx6202)
+    blended_melt = 107.7227 * percent1 - 44.6137 * percent2 + 63.109
+    return(blended_melt)
+
 
  
     
