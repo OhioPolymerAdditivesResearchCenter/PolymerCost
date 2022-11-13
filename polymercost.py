@@ -396,6 +396,13 @@ def inverse_rule_of_mixtures(property1, parts1, property2, parts2):
     output = ((percent1/property1)+(percent2/property2))**-1
     return(output)
 
+def log_rule_of_mixtures(property1, parts1, property2, parts2):
+    #this is logarithmic rule of mixtures
+    percent1 = parts1 / (parts1 + parts2)
+    percent2 = parts2 / (parts1 + parts2)
+    output = (property1**percent1) * (property2**percent2)
+    return(output)
+
 def blended_property_range(property1, parts1, property2, parts2):
     #takes the material property and amount of two components in a blend and estimates that compound's blended property
     #returns the low and high estimate, the average of those, and a plus or minus for that average
