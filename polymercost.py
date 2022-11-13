@@ -368,10 +368,12 @@ def vistamaxx8880_blended_melt_flow(percent_vistamaxx8880, percent_vistamaxx6202
     #check w/ ExxonMobil first, this data is likely only good for theory and in the range of the data available
     #going to extremes will likely just give an incorrect number
     #confirm everything in the lab, use tools like these to dial in your formula before going to lab
+    #I would check this with the rule of mixtures and inverse for sanity check
     percent1 = percent_vistamaxx8880 / (percent_vistamaxx8880 + percent_vistamaxx6202)
     percent2 = percent_vistamaxx6202 / (percent_vistamaxx8880 + percent_vistamaxx6202)
     blended_melt = 107.7227 * percent1 - 44.6137 * percent2 + 63.109
     return(blended_melt)
+
 
 def rule_of_mixtures(property1, parts1, property2, parts2):
     #simple rule of mixtures
@@ -394,7 +396,14 @@ def inverse_rule_of_mixtures(property1, parts1, property2, parts2):
     output = ((percent1/property1)+(percent2/property2))**-1
     return(output)
 
-
+def blended_property_range(property1, parts1, property2, parts2):
+    #takes the material property and amount of two components in a blend and estimates that compound's blended property
+    #returns the low and high estimate, the average of those, and a plus or minus for that average
+    lo = inverse_rule_of_mixtures(property1, parts1, property2, parts2)
+    hi = rule_of_mixtures(property1, parts1, property2, parts2)
+    avg = (lo+hi)/2
+    plusminus = hi-avg
+    return(lo,hi,avg,plusminus)
 
  
     
