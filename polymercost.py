@@ -337,6 +337,7 @@ def rigid_3micron(phr_filler, phr_impact_modifier):
     return(flex_mod, notch)
 
 def density_blend(density1, parts1, density2, parts2):
+    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=20257
     #takes 2 PE grades and calculates out the density using rule of mixtures
     #can use parts or percent, it will make it to 100% though no matter what
     #this isn't a bad estimate of tensile and flexural properties of PE blends either
@@ -348,7 +349,10 @@ def density_blend(density1, parts1, density2, parts2):
     
 
 def melt_index_blend(melt1, parts1, melt2, parts2):
+    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=20257
+    #this is logarithmic rule of mixtures
     #better estimate of melt index than rule of mixtures
+    #I would use this for melt index PE
     percent1 = parts1 / (parts1 + parts2)
     percent2 = parts2 / (parts1 + parts2)
     blended_melt = (melt1**percent1) * (melt2**percent2)
@@ -361,10 +365,35 @@ def vistamaxx8880_blended_melt_flow(percent_vistamaxx8880, percent_vistamaxx6202
     #should allow higher usage of filler to reduce costs also
     #less stress whitening, less need for process aid
     #higher output
+    #check w/ ExxonMobil first, this data is likely only good for theory and in the range of the data available
+    #going to extremes will likely just give an incorrect number
+    #confirm everything in the lab, use tools like these to dial in your formula before going to lab
     percent1 = percent_vistamaxx8880 / (percent_vistamaxx8880 + percent_vistamaxx6202)
     percent2 = percent_vistamaxx6202 / (percent_vistamaxx8880 + percent_vistamaxx6202)
     blended_melt = 107.7227 * percent1 - 44.6137 * percent2 + 63.109
     return(blended_melt)
+
+def rule_of_mixtures(property1, parts1, property2, parts2):
+    #simple rule of mixtures
+    #the property is likely no more than this (ignoring a minor adjustment)
+    #the property is likely no less than the inverse rule of mixtures
+    #in practice with spg I and the PVC industry have always used inverse rule of mixtures
+    #I would add back the typical difference from calculated to measured specific gravity as a constant
+    percent1 = parts1 / (parts1 + parts2)
+    percent2 = parts2 / (parts1 + parts2)
+    return(percent1 * property1 + percent2 * property2)
+
+def inverse_rule_of_mixtures(property1, parts1, property2, parts2):
+    #inverse rule of mixtures
+    #the property is likely no less than this
+    #the property is likely no more than the rule of mixtures calculation
+    #if you are costing out formulas, use this for sure
+    #this is the same calculation as the spg_costs() and spg() functions
+    percent1 = parts1 / (parts1 + parts2)
+    percent2 = parts2 / (parts1 + parts2)
+    output = ((percent1/property1)+(percent2/property2))**-1
+    return(output)
+
 
 
  
