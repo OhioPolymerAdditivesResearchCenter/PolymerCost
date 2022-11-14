@@ -204,6 +204,77 @@ def flex_clear_eso(phr):
     output = (duro, modulus, tensile, elongation, clashberg, brittle)
     return output
 
+def dry_blend_time(viscosity):
+    #viscosity of neat plasticizer, cS @88C
+    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=17575
+    #n = 18, r square = 0.987
+    #made in suspension grade PVC with 0.95 IV
+    #takes in viscosity of plasticizer, predicts Dry Blend time, in minutes
+    #viscosity figures for common plasticizers below for reference
+    #key,value; dop,5.4; dinp,6.6; didp,1.74; totm,1.73; tintm,1.91; doa,3.27; dina,3.35
+    #you shouldn't have to estimate these as they are generally published
+    output = -0.067 + (0.282 * viscosity) - 0.015 * (viscosity - 8)**2
+    return(output)
+
+def dry_blend_time_alt(viscosity, spg):
+    #viscosity of neat plasticizer, cS @88C
+    #spg or specific gravity of neat plasticizer @ 20/20C
+    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=17575
+    #n = 18, r square = 0.948
+    #made in suspension grade PVC with 0.95 IV
+    #takes in viscosity of plasticizer, predicts Dry Blend time, in minutes
+    #this is less accurate, but easier
+    #viscosity figures for common plasticizers below for reference
+    #key,value; dop,5.4; dinp,6.6; didp,1.74; totm,1.73; tintm,1.91; doa,3.27; dina,3.35
+    #you shouldn't have to estimate these as they are generally published
+    output = 10.05 + (0.218 * viscosity) - (10.08 * spg)
+    return(output)
+
+def gelation_initial_temp(mw, hir):
+    #mw is molecular weight of plasticizer, g/mole
+    #hir is the interaction radius, i.e. the shortest diistance between any given reagent and PVC polymer in Hansen three dimensional grid for solubility parameter, (cal/cm^3)^0.5
+    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=17575
+    #n = 18, r square = 0.992
+    #made in dispersion grade PVC with 1.12 IV
+    #takes in Molecular Weight and Hansen interaction radius of plasticizer, predicts initial gelation temperature, in degrees Celsius
+    #MW and HIR figures for common plasticizers below for reference
+    #key, value, value
+    #plasticizer, MW, HIR
+    #DOP, 390, 1.39
+    #DINP, 424, 1.64
+    #DIDP, 446, 1.74
+    #TOTM, 546, 1.73
+    #TINTM, 596, 1.91
+    #DOA, 370, 3.27
+    #DINA, 404, 3.35
+    #you shouldn't have to estimate these as they are generally published
+    #think of this figure as where your plastisol gets its first outer skin, making it able to contact items and not transfer wet plastisol, such as a steam roll to finish gelation after the IR lamps
+    output = -8.35 + (0.118 * mw) + (0.001*(mw-450)**2) + 21.4 * hir
+    return(output)
+
+
+def gelation_final_temp(hir):
+    #hir is the interaction radius, i.e. the shortest diistance between any given reagent and PVC polymer in Hansen three dimensional grid for solubility parameter, (cal/cm^3)^0.5
+    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=17575
+    #n = 18, r square = 0.987
+    #made in dispersion grade PVC with 1.12 IV
+    #takes in Molecular Weight and Hansen interaction radius of plasticizer, predicts initial gelation temperature, in degrees Celsius
+    #MW and HIR figures for common plasticizers below for reference
+    #key, value, value
+    #plasticizer, MW, HIR
+    #DOP, 390, 1.39
+    #DINP, 424, 1.64
+    #DIDP, 446, 1.74
+    #TOTM, 546, 1.73
+    #TINTM, 596, 1.91
+    #DOA, 370, 3.27
+    #DINA, 404, 3.35
+    #you shouldn't have to estimate these as they are generally published
+    #think of this figure of as the temperature you need to reach to fully firm up the material
+    output = 71.48 + 39.3 * hir
+    return(output)
+
+
 def txib_replace(phr_txib):
     #takes in phr of Eastman TXIB you are adding to the formula
     #phr is per hundred resin (or per hundred rubber)
