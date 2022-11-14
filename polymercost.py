@@ -204,6 +204,21 @@ def flex_clear_eso(phr):
     output = (duro, modulus, tensile, elongation, clashberg, brittle)
     return output
 
+def txib_replace(phr_txib):
+    #takes in phr of Eastman TXIB you are adding to the formula
+    #phr is per hundred resin (or per hundred rubber)
+    #phr is not percent
+    #you should be writing all formulas in phr terms always
+    #returns amount of filler you can add to the formula and still maintain original viscosity
+    #you are replacing general purpose plasticizer when you add txib, remember to take it out of the formula
+    return(3.333333333333 * phr_txib)
+
+def txib_filler_add(phr_filler):
+    #takes in phr of CaCO3 filler you are wanting to add to your formula
+    #returns phr amount of Eastman TXIB you need to replace general purpose plasticizer to add that much filler and maintain original viscosity
+    return(phr_filler/3.333333333333)
+
+
 def flex_filled(duro_A, phr_CaCO3):
     #linear r square 0.989, n = 27
     #duro = 0.929607437 * duro_A + 0.0531305301 * phr_CaCO3 + 6.270608278
