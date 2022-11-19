@@ -204,75 +204,6 @@ def flex_clear_eso(phr):
     output = (duro, modulus, tensile, elongation, clashberg, brittle)
     return output
 
-def dry_blend_time(viscosity):
-    #viscosity of neat plasticizer, cS @88C
-    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=17575
-    #n = 18, r square = 0.987
-    #made in suspension grade PVC with 0.95 IV
-    #takes in viscosity of plasticizer, predicts Dry Blend time, in minutes
-    #viscosity figures for common plasticizers below for reference
-    #key,value; dop,5.4; dinp,6.6; didp,1.74; totm,1.73; tintm,1.91; doa,3.27; dina,3.35
-    #you shouldn't have to estimate these as they are generally published
-    output = -0.067 + (0.282 * viscosity) - 0.015 * (viscosity - 8)**2
-    return(output)
-
-def dry_blend_time_alt(viscosity, spg):
-    #viscosity of neat plasticizer, cS @88C
-    #spg or specific gravity of neat plasticizer @ 20/20C
-    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=17575
-    #n = 18, r square = 0.948
-    #made in suspension grade PVC with 0.95 IV
-    #takes in viscosity of plasticizer, predicts Dry Blend time, in minutes
-    #this is less accurate, but easier
-    #viscosity figures for common plasticizers below for reference
-    #key,value; dop,5.4; dinp,6.6; didp,1.74; totm,1.73; tintm,1.91; doa,3.27; dina,3.35
-    #you shouldn't have to estimate these as they are generally published
-    output = 10.05 + (0.218 * viscosity) - (10.08 * spg)
-    return(output)
-
-def gelation_initial_temp(mw, hir):
-    #mw is molecular weight of plasticizer, g/mole
-    #hir is the interaction radius, i.e. the shortest diistance between any given reagent and PVC polymer in Hansen three dimensional grid for solubility parameter, (cal/cm^3)^0.5
-    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=17575
-    #n = 18, r square = 0.992
-    #made in dispersion grade PVC with 1.12 IV
-    #takes in Molecular Weight and Hansen interaction radius of plasticizer, predicts initial gelation temperature, in degrees Celsius
-    #MW and HIR figures for common plasticizers below for reference
-    #key, value, value
-    #plasticizer, MW, HIR
-    #DOP, 390, 1.39
-    #DINP, 424, 1.64
-    #DIDP, 446, 1.74
-    #TOTM, 546, 1.73
-    #TINTM, 596, 1.91
-    #DOA, 370, 3.27
-    #DINA, 404, 3.35
-    #you shouldn't have to estimate these as they are generally published
-    #think of this figure as where your plastisol gets its first outer skin, making it able to contact items and not transfer wet plastisol, such as a steam roll to finish gelation after the IR lamps
-    output = -8.35 + (0.118 * mw) + (0.001*(mw-450)**2) + 21.4 * hir
-    return(output)
-
-
-def gelation_final_temp(hir):
-    #hir is the interaction radius, i.e. the shortest diistance between any given reagent and PVC polymer in Hansen three dimensional grid for solubility parameter, (cal/cm^3)^0.5
-    #https://www.4spe.org/i4a/doclibrary/getfile.cfm?doc_id=17575
-    #n = 18, r square = 0.987
-    #made in dispersion grade PVC with 1.12 IV
-    #takes in Molecular Weight and Hansen interaction radius of plasticizer, predicts initial gelation temperature, in degrees Celsius
-    #MW and HIR figures for common plasticizers below for reference
-    #key, value, value
-    #plasticizer, MW, HIR
-    #DOP, 390, 1.39
-    #DINP, 424, 1.64
-    #DIDP, 446, 1.74
-    #TOTM, 546, 1.73
-    #TINTM, 596, 1.91
-    #DOA, 370, 3.27
-    #DINA, 404, 3.35
-    #you shouldn't have to estimate these as they are generally published
-    #think of this figure of as the temperature you need to reach to fully firm up the material
-    output = 71.48 + 39.3 * hir
-    return(output)
 
 
 def txib_replace(phr_txib):
@@ -282,11 +213,13 @@ def txib_replace(phr_txib):
     #you should be writing all formulas in phr terms always
     #returns amount of filler you can add to the formula and still maintain original viscosity
     #you are replacing general purpose plasticizer when you add txib, remember to take it out of the formula
+    #ExxonMobil Jayflex 210 or 220 here in place of Eastman TXIB, contact ExxonMobil
     return(3.333333333333 * phr_txib)
 
 def txib_filler_add(phr_filler):
     #takes in phr of CaCO3 filler you are wanting to add to your formula
     #returns phr amount of Eastman TXIB you need to replace general purpose plasticizer to add that much filler and maintain original viscosity
+    #ExxonMobil Jayflex 210 or 220 here in place of Eastman TXIB, contact ExxonMobil
     return(phr_filler/3.333333333333)
 
 
@@ -322,6 +255,7 @@ def duro_AtoD(duro_A):
 
 def rigid_nano07(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.990, n = 16
+    #0.07 micron precipitated CaCO3
     flex_a = 0.0740909091 * phr_filler * phr_filler
     flex_b = -0.1265714286 * phr_filler * phr_impact_modifier
     flex_c = 0.265625 * phr_impact_modifier * phr_impact_modifier
@@ -330,7 +264,8 @@ def rigid_nano07(phr_filler, phr_impact_modifier):
     flex_f = 499.1600325
     flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
 
-    #notched izod polynomial r squared = 0.765, n = 46
+    #notched izod polynomial r squared = 0.765, n = 16
+    #0.07 micron precipitated CaCO3
     notch_a = 2.397884026 * phr_filler * phr_filler
     notch_b = 5.914428509 * phr_filler * phr_impact_modifier
     notch_c = -1.873679882 * phr_impact_modifier * phr_impact_modifier
@@ -343,6 +278,7 @@ def rigid_nano07(phr_filler, phr_impact_modifier):
 
 def rigid_nano3(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.986, n = 16
+    #0.3 micron precipitated CaCO3
     flex_a = 0.0540909091 * phr_filler * phr_filler
     flex_b = -0.2594285714 * phr_filler * phr_impact_modifier
     flex_c = 0.0625 * phr_impact_modifier * phr_impact_modifier
@@ -352,6 +288,7 @@ def rigid_nano3(phr_filler, phr_impact_modifier):
     flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
 
     #notched izod polynomial r squared = 0.761, n = 16
+    #0.3 micron precipitated CaCO3
     notch_a = -0.2129545455 * phr_filler * phr_filler
     notch_b = 0.9097142857 * phr_filler * phr_impact_modifier
     notch_c = -23.34375 * phr_impact_modifier * phr_impact_modifier
@@ -363,6 +300,7 @@ def rigid_nano3(phr_filler, phr_impact_modifier):
 
 def rigid_nano7(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.976, n = 16
+    #0.7 micron precipitated CaCO3
     flex_a = 0.0045454545 * phr_filler * phr_filler
     flex_b = -1.857142857 * phr_filler * phr_impact_modifier
     flex_c = 0.09375 * phr_impact_modifier * phr_impact_modifier
@@ -372,6 +310,7 @@ def rigid_nano7(phr_filler, phr_impact_modifier):
     flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
 
     #notched izod polynomial r squared = 0.783, n = 16
+    #0.7 micron precipitated CaCO3
     notch_a = 1.348181818 * phr_filler * phr_filler
     notch_b = 11.25028571 * phr_filler * phr_impact_modifier
     notch_c = 0.25 * phr_impact_modifier * phr_impact_modifier
@@ -383,6 +322,7 @@ def rigid_nano7(phr_filler, phr_impact_modifier):
 
 def rigid_2micron(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.977, n = 16
+    #2 micron CaCO3
     flex_a = 0.1375 * phr_filler * phr_filler
     flex_b = 0.085 * phr_filler * phr_impact_modifier
     flex_c = 0.484375 * phr_impact_modifier * phr_impact_modifier
@@ -392,6 +332,7 @@ def rigid_2micron(phr_filler, phr_impact_modifier):
     flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
 
     #notched izod polynomial r squared = 0.932, n = 16
+    #2 micron CaCO3
     notch_a = -0.0125 * phr_filler * phr_filler
     notch_b = -0.765 * phr_filler * phr_impact_modifier
     notch_c = 0.953125 * phr_impact_modifier * phr_impact_modifier
@@ -404,6 +345,7 @@ def rigid_2micron(phr_filler, phr_impact_modifier):
 
 def rigid_3micron(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.995, n = 16
+    #3 micron CaCO3
     flex_a = 0.11 * phr_filler * phr_filler
     flex_b = -0.38 * phr_filler * phr_impact_modifier
     flex_c = 0.03125 * phr_impact_modifier * phr_impact_modifier
@@ -413,6 +355,7 @@ def rigid_3micron(phr_filler, phr_impact_modifier):
     flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
 
     #notched izod polynomial r squared = 0.852, n = 16
+    #3 micron CaCO3
     notch_a = 0.28 * phr_filler * phr_filler
     notch_b = -0.952 * phr_filler * phr_impact_modifier
     notch_c = 1.09375 * phr_impact_modifier * phr_impact_modifier
