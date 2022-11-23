@@ -275,7 +275,7 @@ def rigid_nano07(phr_filler, phr_impact_modifier):
     flex_d = 0.2065324675 * phr_filler
     flex_e = -9.682321429 * phr_impact_modifier
     flex_f = 499.1600325
-    flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
+    flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
     #notched izod polynomial r squared = 0.765, n = 16
     #0.07 micron precipitated CaCO3
@@ -301,7 +301,7 @@ def rigid_nano3(phr_filler, phr_impact_modifier):
     flex_d = 2.415103896 * phr_filler
     flex_e = -8.306428571 * phr_impact_modifier
     flex_f = 498.0761039
-    flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
+    flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
     #notched izod polynomial r squared = 0.761, n = 16
     #0.3 micron precipitated CaCO3
@@ -326,7 +326,7 @@ def rigid_nano7(phr_filler, phr_impact_modifier):
     flex_d = 3.398051948 * phr_filler
     flex_e = -8.248214286 * phr_impact_modifier
     flex_f = 497.5230519
-    flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
+    flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
     #notched izod polynomial r squared = 0.783, n = 16
     #0.7 micron precipitated CaCO3
@@ -351,7 +351,7 @@ def rigid_2micron(phr_filler, phr_impact_modifier):
     flex_d = 0.3675 * phr_filler
     flex_e = -10.85625 * phr_impact_modifier
     flex_f = 498.775
-    flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
+    flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
     #notched izod polynomial r squared = 0.932, n = 16
     #2 micron CaCO3
@@ -377,7 +377,7 @@ def rigid_3micron(phr_filler, phr_impact_modifier):
     flex_d = 1.774 * phr_filler
     flex_e = -8.6775 * phr_impact_modifier
     flex_f = 499.145
-    flex_mod = flex_a + flex_b + flex_c + flex_d + flex_e + flex_f
+    flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
     #notched izod polynomial r squared = 0.852, n = 16
     #3 micron CaCO3
