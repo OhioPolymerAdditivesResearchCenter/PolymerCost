@@ -254,8 +254,21 @@ def duro_AtoD(duro_A):
     return output
 
 def rigid_nano07(phr_filler, phr_impact_modifier):
+    #all rigid functions from following paper
+    """THE EFFECT O F C A LC IU M C A R BO N A TE SIZE AND LO A D IN G
+    LEVEL ON THE IM PA C T PERFO R M A NCE O F R IG ID PVC
+    C O M PO U N D S C O N TA IN IN G V A R Y IN G A M O U N TS O F A C R Y LIC
+    IM PA C T M O D IFIER
+    W illiam S.Bryantand H enry E.W iebking
+    Specialty M inerals,Inc.
+    640 N 13th St.
+    Easton,PA 18042 """
+
     #flexural modulus polynomial r squared = 0.990, n = 16
     #0.07 micron precipitated CaCO3
+    #takes in phr of 0.07 micron precipitated CaCO3 and phr of acrylic impact modifier (weatherable)
+    #returns Notched Izod impact in ft-lbs/in terms
+    #returns Flexural Modulus in terms of psi
     flex_a = 0.0740909091 * phr_filler * phr_filler
     flex_b = -0.1265714286 * phr_filler * phr_impact_modifier
     flex_c = 0.265625 * phr_impact_modifier * phr_impact_modifier
@@ -279,6 +292,9 @@ def rigid_nano07(phr_filler, phr_impact_modifier):
 def rigid_nano3(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.986, n = 16
     #0.3 micron precipitated CaCO3
+    #takes in phr of 0.3 micron precipitated CaCO3 and phr of acrylic impact modifier (weatherable)
+    #returns Notched Izod impact in ft-lbs/in terms
+    #returns Flexural Modulus in terms of psi
     flex_a = 0.0540909091 * phr_filler * phr_filler
     flex_b = -0.2594285714 * phr_filler * phr_impact_modifier
     flex_c = 0.0625 * phr_impact_modifier * phr_impact_modifier
@@ -301,6 +317,9 @@ def rigid_nano3(phr_filler, phr_impact_modifier):
 def rigid_nano7(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.976, n = 16
     #0.7 micron precipitated CaCO3
+    #takes in phr of 0.7 micron precipitated CaCO3 and phr of acrylic impact modifier (weatherable)
+    #returns Notched Izod impact in ft-lbs/in terms
+    #returns Flexural Modulus in terms of psi
     flex_a = 0.0045454545 * phr_filler * phr_filler
     flex_b = -1.857142857 * phr_filler * phr_impact_modifier
     flex_c = 0.09375 * phr_impact_modifier * phr_impact_modifier
@@ -323,6 +342,9 @@ def rigid_nano7(phr_filler, phr_impact_modifier):
 def rigid_2micron(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.977, n = 16
     #2 micron CaCO3
+    #takes in phr of 2 micron ground CaCO3 and phr of acrylic impact modifier (weatherable)
+    #returns Notched Izod impact in ft-lbs/in terms
+    #returns Flexural Modulus in terms of psi
     flex_a = 0.1375 * phr_filler * phr_filler
     flex_b = 0.085 * phr_filler * phr_impact_modifier
     flex_c = 0.484375 * phr_impact_modifier * phr_impact_modifier
@@ -346,6 +368,9 @@ def rigid_2micron(phr_filler, phr_impact_modifier):
 def rigid_3micron(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.995, n = 16
     #3 micron CaCO3
+    #takes in phr of 3 micron ground CaCO3 and phr of acrylic impact modifier (weatherable)
+    #returns Notched Izod impact in ft-lbs/in terms
+    #returns Flexural Modulus in terms of psi
     flex_a = 0.11 * phr_filler * phr_filler
     flex_b = -0.38 * phr_filler * phr_impact_modifier
     flex_c = 0.03125 * phr_impact_modifier * phr_impact_modifier
