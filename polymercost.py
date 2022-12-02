@@ -466,6 +466,129 @@ def blended_property_range(property1, parts1, property2, parts2):
     plusminus = hi-avg
     return(lo,hi,avg,plusminus)
 
+
+def struktolVMO058(ppMeltBefore, percentAdd):
+    #takes in the MFI of the PP before addition
+    #and the percentage added of Struktol VMO108
+    #returns predicted MFI after addition of visbreaker to PP
+    #this contains visbreaker, odor reduction, and lubricant
+    #using a non Struktol visbreaker won't perform the same without these added back at someone's cost
+    #tool is for estimation only, like all these tools
+    #contact Struktol for technical support
+    #the tool has difficulties with low initial MFI PP and low / no doses of additive
+    #https://www.struktol.com/products/plastic-additives/melt-flow-modifiers-for-pp/
+    #raw data (initMFI, %add, newMFI)
+    #0.7,0,0.7
+    #0.7,0.5,3.33
+    #0.7,1.0,10.67
+    #0.7,2.0,23.33
+    #5,0,5
+    #5,0.5,13.33
+    #5,1.0,20
+    #5,2.0,40
+    
+    output = -0.5997 + 1.1888*ppMeltBefore + 6.6392*percentAdd + 1.3191*ppMeltBefore*percentAdd+2.025*percentAdd*percentAdd
+    if output <= ppMeltBefore:
+      output = ppMeltBefore
+    return output
+
+def struktolVMO108(ppMeltBefore, percentAdd):
+    #takes in the MFI of the PP before addition
+    #and the percentage added of Struktol VMO108
+    #returns predicted MFI after addition of visbreaker to PP
+    #this contains visbreaker, odor reduction, and lubricant
+    #using a non Struktol visbreaker won't perform the same without these added back at someone's cost
+    #tool is for estimation only, like all these tools
+    #contact Struktol for technical support
+    #the tool has difficulties with low initial MFI PP and low / no doses of additive
+    #https://www.struktol.com/products/plastic-additives/melt-flow-modifiers-for-pp/
+    #raw data (initMFI, %add, newMFI)
+    #0.7,0,0.7
+    #0.7,0.5,6.67
+    #0.7,1.0,18.33
+    #0.7,2.0,63.33
+    #5,0,5
+    #5,0.5,18.33
+    #5,1.0,45
+    #5,2.0,85
+    
+    output = -3.2788 + 1.9172*ppMeltBefore + 14.268*percentAdd + 2.0813*ppMeltBefore*percentAdd+7.9505*percentAdd*percentAdd
+    if output <= ppMeltBefore:
+      output = ppMeltBefore
+    return output
+
+def struktolVMO208(ppMeltBefore, percentAdd):
+    #takes in the MFI of the PP before addition
+    #and the percentage added of Struktol VMO208
+    #returns predicted MFI after addition of visbreaker to PP
+    #this contains visbreaker, odor reduction, and lubricant
+    #using a non Struktol visbreaker won't perform the same without these added back at someone's cost
+    #tool is for estimation only, like all these tools
+    #contact Struktol for technical support
+    #the tool has difficulties with low initial MFI PP and low / no doses of additive
+    #https://www.struktol.com/products/plastic-additives/melt-flow-modifiers-for-pp/
+    #raw data (initMFI, %add, newMFI)
+    #0.7,0,0.7
+    #0.7,0.5,18.33
+    #0.7,1.0,55.00
+    #5,0,5
+    #5,0.5,31.67
+    #5,1.0,70
+    
+    output = -0.8152 + 1.286*ppMeltBefore + 21.8581*percentAdd + 2.4884*ppMeltBefore*percentAdd+30.7*percentAdd*percentAdd
+    if output <= ppMeltBefore:
+      output = ppMeltBefore
+    return output
+
+
+def struktolVMO308(ppMeltBefore, percentAdd):
+    #takes in the MFI of the PP before addition
+    #and the percentage added of Struktol VMO308
+    #returns predicted MFI after addition of visbreaker to PP
+    #this contains visbreaker, odor reduction, and lubricant
+    #using a non Struktol visbreaker won't perform the same without these added back at someone's cost
+    #tool is for estimation only, like all these tools
+    #contact Struktol for technical support
+    #the tool has difficulties with low initial MFI PP and low / no doses of additive
+    #https://www.struktol.com/products/plastic-additives/melt-flow-modifiers-for-pp/
+    #raw data (initMFI, %add, newMFI)
+    #0.7,0,0.7
+    #0.7,0.25,13.33
+    #0.7,0.5,38.33
+    #0.7,1,100
+    #5,0,5
+    #5,0.25,21.67
+    #5,0.50,63.33
+    
+    output = 0.7449 + 0.2685*ppMeltBefore + 32.2292*percentAdd + 10.8742*ppMeltBefore*percentAdd+60.1191*percentAdd*percentAdd
+    if output <= ppMeltBefore:
+      output = ppMeltBefore
+    return output
+
+def struktolVMO408(ppMeltBefore, percentAdd):
+    #takes in the MFI of the PP before addition
+    #and the percentage added of Struktol VMO408
+    #returns predicted MFI after addition of visbreaker to PP
+    #this contains visbreaker, odor reduction, and lubricant
+    #using a non Struktol visbreaker won't perform the same without these added back at someone's cost
+    #tool is for estimation only, like all these tools
+    #contact Struktol for technical support
+    #the tool has difficulties with low initial MFI PP and low / no doses of additive
+    #https://www.struktol.com/products/plastic-additives/melt-flow-modifiers-for-pp/
+    #raw data (initMFI, %add, newMFI)
+    #0.7,0,0.7
+    #0.7,0.125,11.67
+    #0.7,0.25,20
+    #0.7,0.5,61.67
+    #5,0,5
+    #5,0.125,18.33
+    #5,0.25,36.67
+    #5,0.5,78.33
+
+    output = -0.315 + 1.22*ppMeltBefore + 55.2543*percentAdd + 6.1943*ppMeltBefore*percentAdd+121.12*percentAdd*percentAdd
+    if output <= ppMeltBefore:
+      output = ppMeltBefore
+    return output
  
     
 
