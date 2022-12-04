@@ -254,47 +254,48 @@ def duro_AtoD(duro_A):
     return output
 
 def rigid_nano07(phr_filler, phr_impact_modifier):
-    #all rigid functions from following paper
-    """THE EFFECT O F C A LC IU M C A R BO N A TE SIZE AND LO A D IN G
-    LEVEL ON THE IM PA C T PERFO R M A NCE O F R IG ID PVC
-    C O M PO U N D S C O N TA IN IN G V A R Y IN G A M O U N TS O F A C R Y LIC
-    IM PA C T M O D IFIER
-    W illiam S.Bryantand H enry E.W iebking
-    Specialty M inerals,Inc.
-    640 N 13th St.
-    Easton,PA 18042 """
+    #all rigid functions nano or micron sized are derived from the following SPE paper
+    #THE EFFECT OF CALCIUM CARBONATE SIZE AND LOADING
+    #LEVEL ON THE IMPACT PERFORMANCE OF RIGID PVC
+    #COMPOUNDS CONTAINING VARYING AMOUNTS OF ACRYLIC
+    #IMPACT MODIFIER
+    #William S. Bryant and Henry E. Wiebking
+    #Specialty Minerals, Inc.
+    #PCCs used:Ultra-Pflex® (0.07 µm )= Ultrafine CaCO3, TuffgardTM
+    #(0.3µm), Super-Pflex® 100 (0.7 µm). GCCs used: Superfil® (2.0µm),
+    #Hi-Pflex® 100 (3.0 µm). All supplied by Specialty Minerals, Inc.
+    #k=66 pvc; 1.5 tin stab; 1.0 acrylic process aid; 0.5 calcium stearate; 0.8 fatty acid ester; 0.5 high molecular complex ester 0.5; acrylic weatherable impact modifier 0 - 20; GCC or PCC 0 - 20
 
-    #flexural modulus polynomial r squared = 0.990, n = 16
-    #0.07 micron precipitated CaCO3
-    #takes in phr of 0.07 micron precipitated CaCO3 and phr of acrylic impact modifier (weatherable)
-    #returns Notched Izod impact in ft-lbs/in terms
-    #returns Flexural Modulus in terms of psi
-    flex_a = 0.0740909091 * phr_filler * phr_filler
-    flex_b = -0.1265714286 * phr_filler * phr_impact_modifier
-    flex_c = 0.265625 * phr_impact_modifier * phr_impact_modifier
-    flex_d = 0.2065324675 * phr_filler
-    flex_e = -9.682321429 * phr_impact_modifier
-    flex_f = 499.1600325
-    flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
-    #notched izod polynomial r squared = 0.765, n = 16
-    #0.07 micron precipitated CaCO3
-    notch_a = 2.397884026 * phr_filler * phr_filler
-    notch_b = 5.914428509 * phr_filler * phr_impact_modifier
-    notch_c = -1.873679882 * phr_impact_modifier * phr_impact_modifier
-    notch_d = 14.09969499 * phr_filler
-    notch_e = 82.8909861 * phr_impact_modifier
-    notch_f = -183.6350482
+    #flexural modulus polynomial r squared = 0.984, n = 16
+    #returns in terms of psi
+    flex_a = 0.0741 * phr_filler * phr_filler
+    flex_b = -0.1266 * phr_filler * phr_impact_modifier
+    flex_c = 0.2656 * phr_impact_modifier * phr_impact_modifier
+    flex_d = 0.2065 * phr_filler
+    flex_e = -9.6823 * phr_impact_modifier
+    flex_f = 499.16
+    flex_mod =1000 * (flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
+    
+
+    #notched izod polynomial r squared = 0.803, n = 30
+    #returns in terms of ft-lbs/in
+    #notched izod test has more variation in the procedure than flex mod making the data less reliable
+    notch_a = 0.0476 * phr_filler * phr_filler
+    notch_b = 0.1744 * phr_filler * phr_impact_modifier
+    notch_c = 0.1214 * phr_impact_modifier * phr_impact_modifier
+    notch_d = -0.1654 * phr_filler
+    notch_e = -0.0145 * phr_impact_modifier
+    notch_f = -1.3462
     notch = notch_a + notch_b + notch_c + notch_d + notch_e + notch_f
+    if notch < 0.7:
+      notch = 0.7
     return(flex_mod, notch)
 
 
 def rigid_nano3(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.986, n = 16
-    #0.3 micron precipitated CaCO3
-    #takes in phr of 0.3 micron precipitated CaCO3 and phr of acrylic impact modifier (weatherable)
-    #returns Notched Izod impact in ft-lbs/in terms
-    #returns Flexural Modulus in terms of psi
+    #returns in terms of psi
     flex_a = 0.0540909091 * phr_filler * phr_filler
     flex_b = -0.2594285714 * phr_filler * phr_impact_modifier
     flex_c = 0.0625 * phr_impact_modifier * phr_impact_modifier
@@ -304,24 +305,24 @@ def rigid_nano3(phr_filler, phr_impact_modifier):
     flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
     #notched izod polynomial r squared = 0.761, n = 16
-    #0.3 micron precipitated CaCO3
-    notch_a = -0.2129545455 * phr_filler * phr_filler
-    notch_b = 0.9097142857 * phr_filler * phr_impact_modifier
-    notch_c = -23.34375 * phr_impact_modifier * phr_impact_modifier
-    notch_d = 79.34926623 * phr_filler
-    notch_e = 265.3782143 * phr_impact_modifier
-    notch_f = -344.6062338
+    #returns in terms of ft-lbs/in
+    #notched izod test has more variation in the procedure than flex mod making the data less reliable
+    notch_a = -0.004 * phr_filler * phr_filler
+    notch_b = 0.017 * phr_filler * phr_impact_modifier
+    notch_c = -0.4375 * phr_impact_modifier * phr_impact_modifier
+    notch_d = 1.4869 * phr_filler
+    notch_e = 4.9734 * phr_impact_modifier
+    notch_f = -6.4603
     notch = notch_a + notch_b + notch_c + notch_d + notch_e + notch_f
+    if notch < 0.7:
+      notch = 0.7
     return(flex_mod, notch)
 
 def rigid_nano7(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.976, n = 16
-    #0.7 micron precipitated CaCO3
-    #takes in phr of 0.7 micron precipitated CaCO3 and phr of acrylic impact modifier (weatherable)
-    #returns Notched Izod impact in ft-lbs/in terms
-    #returns Flexural Modulus in terms of psi
+    #returns in terms of psi
     flex_a = 0.0045454545 * phr_filler * phr_filler
-    flex_b = -1.857142857 * phr_filler * phr_impact_modifier
+    flex_b = -0.1857142857 * phr_filler * phr_impact_modifier
     flex_c = 0.09375 * phr_impact_modifier * phr_impact_modifier
     flex_d = 3.398051948 * phr_filler
     flex_e = -8.248214286 * phr_impact_modifier
@@ -329,22 +330,22 @@ def rigid_nano7(phr_filler, phr_impact_modifier):
     flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
     #notched izod polynomial r squared = 0.783, n = 16
-    #0.7 micron precipitated CaCO3
-    notch_a = 1.348181818 * phr_filler * phr_filler
-    notch_b = 11.25028571 * phr_filler * phr_impact_modifier
-    notch_c = 0.25 * phr_impact_modifier * phr_impact_modifier
-    notch_d = -1.717220779 * phr_filler
-    notch_e = 62.53428571 * phr_impact_modifier
-    notch_f = -68.33922078
+    #returns in terms of ft-lbs/in
+    #notched izod test has more variation in the procedure than flex mod making the data less reliable
+    notch_a = 0.0252 * phr_filler * phr_filler
+    notch_b = 0.2107 * phr_filler * phr_impact_modifier
+    notch_c = 0.0047 * phr_impact_modifier * phr_impact_modifier
+    notch_d = -0.0305 * phr_filler
+    notch_e = 1.1726 * phr_impact_modifier
+    notch_f = -1.2848
     notch = notch_a + notch_b + notch_c + notch_d + notch_e + notch_f
+    if notch < 0.7:
+      notch = 0.7
     return(flex_mod, notch)
 
 def rigid_2micron(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.977, n = 16
-    #2 micron CaCO3
-    #takes in phr of 2 micron ground CaCO3 and phr of acrylic impact modifier (weatherable)
-    #returns Notched Izod impact in ft-lbs/in terms
-    #returns Flexural Modulus in terms of psi
+    #returns in terms of psi
     flex_a = 0.1375 * phr_filler * phr_filler
     flex_b = 0.085 * phr_filler * phr_impact_modifier
     flex_c = 0.484375 * phr_impact_modifier * phr_impact_modifier
@@ -353,24 +354,24 @@ def rigid_2micron(phr_filler, phr_impact_modifier):
     flex_f = 498.775
     flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
-    #notched izod polynomial r squared = 0.932, n = 16
-    #2 micron CaCO3
-    notch_a = -0.0125 * phr_filler * phr_filler
-    notch_b = -0.765 * phr_filler * phr_impact_modifier
-    notch_c = 0.953125 * phr_impact_modifier * phr_impact_modifier
-    notch_d = 3.8275 * phr_filler
-    notch_e = 12.83125 * phr_impact_modifier
-    notch_f = 73.45
+    #notched izod polynomial r squared = 0.930, n = 16
+    #returns in terms of ft-lbs/in
+    #notched izod test has more variation in the procedure than flex mod making the data less reliable
+    notch_a = -0.0002 * phr_filler * phr_filler
+    notch_b = -0.0145 * phr_filler * phr_impact_modifier
+    notch_c = 0.0172 * phr_impact_modifier * phr_impact_modifier
+    notch_d = 0.0728 * phr_filler
+    notch_e = 0.2444 * phr_impact_modifier
+    notch_f = 1.3725
     notch = notch_a + notch_b + notch_c + notch_d + notch_e + notch_f
+    if notch < 0.7:
+      notch = 0.7
     return(flex_mod, notch)
 
 
 def rigid_3micron(phr_filler, phr_impact_modifier):
     #flexural modulus polynomial r squared = 0.995, n = 16
-    #3 micron CaCO3
-    #takes in phr of 3 micron ground CaCO3 and phr of acrylic impact modifier (weatherable)
-    #returns Notched Izod impact in ft-lbs/in terms
-    #returns Flexural Modulus in terms of psi
+    #returns in terms of psi
     flex_a = 0.11 * phr_filler * phr_filler
     flex_b = -0.38 * phr_filler * phr_impact_modifier
     flex_c = 0.03125 * phr_impact_modifier * phr_impact_modifier
@@ -379,15 +380,18 @@ def rigid_3micron(phr_filler, phr_impact_modifier):
     flex_f = 499.145
     flex_mod = 1000*(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
 
-    #notched izod polynomial r squared = 0.852, n = 16
-    #3 micron CaCO3
-    notch_a = 0.28 * phr_filler * phr_filler
-    notch_b = -0.952 * phr_filler * phr_impact_modifier
-    notch_c = 1.09375 * phr_impact_modifier * phr_impact_modifier
-    notch_d = -3.204 * phr_filler
-    notch_e = 10.0775 * phr_impact_modifier
-    notch_f = 78.405
+    #notched izod polynomial r squared = 0.854, n = 16
+    #returns in terms of ft-lbs/in
+    #notched izod test has more variation in the procedure than flex mod making the data less reliable
+    notch_a = 0.0053 * phr_filler * phr_filler
+    notch_b = -0.0179 * phr_filler * phr_impact_modifier
+    notch_c = 0.0203 * phr_impact_modifier * phr_impact_modifier
+    notch_d = -0.0595 * phr_filler
+    notch_e = 0.1911 * phr_impact_modifier
+    notch_f = 1.4635
     notch = notch_a + notch_b + notch_c + notch_d + notch_e + notch_f
+    if notch < 0.7:
+      notch = 0.7
     return(flex_mod, notch)
 
 def density_blend(density1, parts1, density2, parts2):
